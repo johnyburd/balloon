@@ -6,7 +6,7 @@ class gpsClass:
         self.session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
 
     def report(self, reportType):
-        for i in range 10:
+        for i in xrange(10):
             try:
                 report = self.session.next()
                 if report['class'] == 'TPV':

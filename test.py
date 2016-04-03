@@ -1,4 +1,4 @@
-import gps
+from gpsClass import gpsClass
 from Webcam import Webcam
 import barometer
 import cellDongle 
