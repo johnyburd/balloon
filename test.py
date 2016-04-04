@@ -1,6 +1,6 @@
 from gpsClass import gpsClass
 from Webcam import Webcam
-import barometer
+from barometer import barometer
 import cellDongle 
 import time
 
@@ -15,7 +15,8 @@ def main():
     print("Webcam 2...")
     cam2 = Webcam("/dev/video0","640x480")
     print(cam2.status())
-    print("Barometer... " + barometer.status())
+    print("Barometer... ")
+    bar1 = barometer()
 
     print cam1.take_pic()
     print cam2.take_pic()
@@ -26,6 +27,12 @@ def main():
     print("alt: " + gps1.getAlt())
     print("climb: " + gps1.getClimb())
     print("time: " + gps1.getTime())
+
+    print("temp *C " + bar1.getTempC())
+    print("temp *F " + bar1.getTempF())
+    print("alt " + bar1.getAlt())
+    print("pressure " + bar1.getPressure())
+    print("sea level pressure " + bar1.getSeaLevelPressure())
 
 
 

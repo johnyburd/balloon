@@ -1,8 +1,8 @@
 import gps
 
 class gpsClass:
-    def __init__(self, ip, port):
-        self.session = gps.gps(ip,port)
+    def __init__(self, host, port):
+        self.session = gps.gps(host,port)
         self.session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
 
     def report(self, reportType):
