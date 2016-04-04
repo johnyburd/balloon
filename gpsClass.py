@@ -16,19 +16,19 @@ class gpsClass:
                 return 1
 
     def getLat(self):
-        return report(lat)
+        return self.report("lat")
 
     def getLon(self):
-        return report(lon)
+        return self.report("lon")
 
     def getSpeed(self):
-        return report(speed)
+        return self.report("speed")
 
     def getAlt(self):
-        return report(alt)
+        return self.report("alt")
 
     def getClimb(self):
-        return report(climb)
+        return self.report("climb")
 
     def getTime(self):
-        return report(time)
+        return self.report("time")
