@@ -10,8 +10,8 @@ class barometer:
         return (sensor.read_temperature()*9)/5+32
     def getPressure(self):
         #Pa
-        sensor.read_pressure()
+        return sensor.read_pressure()
     def getAlt(self):
-        sensor.read_altitude()
+        return sensor.read_altitude()
     def getSeaLevelPressure(self):
-        sensor.read_sealevel_pressure()
+        return sensor.read_sealevel_pressure()
