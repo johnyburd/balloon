@@ -1,6 +1,6 @@
 import gps
 
-class gpsClass:
+class GpsClass:
     def __init__(self, host, port):
         self.session = gps.gps(host,port)
         self.session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
@@ -14,6 +14,40 @@ class gpsClass:
                         return report.reportType
             except:
                 return 1
+
+    def getDMS(self):
+        lt = getLat()
+        ln = getLon()
+
+        lat = decToDMS(lt)
+        lon = decToDMS(ln)
+
+        latHem = 'N'
+        lonHem = 'E'
+
+        if !lat[0]:
+            latHem = 'S'
+        if !lon[0]:
+            lonHem = 'W'
+
+        return lat[1] + "d" + lat[2] + "'{0:0.3f}\"".format(lat[3]) + latHem + " " + lon[1] + "d" + lon[2] + "'{0:0.3f}\"".format(lon[3]) + lonHem
+
+
+    def decToDMS(dec):
+        pos = True
+        if dec < 0:
+            dec = abs(dec)
+            pos = False
+
+        degrees = int(math.floor(dec))
+        temp = dec % 1
+        temp *= 60
+        minutes = int(math.floor(temp))
+        temp %= 1
+        seconds = temp * 60
+
+        return [pos,degrees,minutes,seconds]
+
 
     def getLat(self):
         return self.report("lat")

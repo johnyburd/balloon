@@ -1,4 +1,4 @@
-from gpsClass import gpsClass
+from gpsClass import GpsClass
 from Webcam import Webcam
 from barometer import Barometer
 import cellDongle 
@@ -21,7 +21,8 @@ def main():
  #   print cam1.take_pic()
  #   print cam2.take_pic()
 
-    print ("lat: "+gps1.getLat())
+    #print ("lat: "+gps1.getLat())
+    print getDMS()
     #print("lon: "+ gps1.getLon())
     #print("speed: " + gps1.getSpeed())
     #print("alt: " + gps1.getAlt())
