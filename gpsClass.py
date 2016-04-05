@@ -1,3 +1,4 @@
+import math
 import gps
 
 class GpsClass:
@@ -31,16 +32,17 @@ class GpsClass:
         if not lon[0]:
             lonHem = 'W'
 
-        return lat[1] + "d" + lat[2] + "'{0:0.3f}\"".format(lat[3]) + latHem + " " + lon[1] + "d" + lon[2] + "'{0:0.3f}\"".format(lon[3]) + lonHem
+        return "{0:d}".format(lat[1]) + " " + str(lat[2]) + "' {0:0.3f}\"".format(lat[3]) + latHem + " " + str(lon[1]) + " " + str(lon[2]) + "' {0:0.3f}\"".format(lon[3]) + lonHem
 
 
-    def decToDMS(dec):
+    def decToDMS(self, dec):
         pos = True
         if dec < 0:
             dec = abs(dec)
             pos = False
 
         degrees = int(math.floor(dec))
+        print degrees
         temp = dec % 1
         temp *= 60
         minutes = int(math.floor(temp))
