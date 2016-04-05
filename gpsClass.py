@@ -11,10 +11,28 @@ class GpsClass:
             try:
                 report = self.session.next()
                 if report['class'] == 'TPV':
-                    if hasattr(report, 'speed'):
-                        return report.speed
+                    if hasattr(report, reportType):
+                        return getattr(report, reportType)
             except:
                 return 1
+
+    def getDMS(self):
+        lt = self.getLat()
+        ln = self.getLon()
+
+        lat = self.decToDMS(lt)
+        lon = self.decToDMS(ln)
+
+        latHem = 'N'
+        lonHem = 'E'
+
+        if not lat[0]:
+            latHem = 'S'
+        if not lon[0]:
+            lonHem = 'W'
+
+        return lat[1] + "d" + lat[2] + "'{0:0.3f}\"".format(lat[3]) + latHem + " " + lon[1] + "d" + lon[2] + "'{0:0.3f}\"".format(lon[3]) + lonHem
+
 
     def decToDMS(dec):
         pos = True
@@ -49,22 +67,4 @@ class GpsClass:
 
     def getTime(self):
         return self.report("time")
-
-    def getDMS(self):
-        lt = self.getLat()
-        ln = self.getLon()
-
-        lat = self.decToDMS(lt)
-        lon = self.decToDMS(ln)
-
-        latHem = 'N'
-        lonHem = 'E'
-
-        if not lat[0]:
-            latHem = 'S'
-        if not lon[0]:
-            lonHem = 'W'
-
-        return lat[1] + "d" + lat[2] + "'{0:0.3f}\"".format(lat[3]) + latHem + " " + lon[1] + "d" + lon[2] + "'{0:0.3f}\"".format(lon[3]) + lonHem
-
 

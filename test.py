@@ -21,9 +21,9 @@ def main():
  #   print cam1.take_pic()
  #   print cam2.take_pic()
 
-    #print (gps1.getLat())
+    print (gps1.getLat())
     #print gps1.getDMS()
-   #print(gps1.getLon())
+    print(gps1.getLon())
     print(gps1.getSpeed())
     #print("alt: " + gps1.getAlt())
     #print("climb: " + gps1.getClimb())
