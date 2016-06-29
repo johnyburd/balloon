@@ -1,4 +1,4 @@
-from gpsClass import GpsClass
+from gpsClass import GpsPoller
 from Webcam import Webcam
 from barometer import Barometer
 import cellDongle
@@ -10,7 +10,8 @@ def main():
     print("initializing balloon equipment")
 #    print("3g... " + cellDongle.status())
     print("GPS... ")
-    gps1 = GpsClass("localhost","99")
+    gpsp = GpsPoller()#("localhost","99")
+    gpsp.start()
     print("Webcam 1...")
     cam1 = Webcam("/dev/video0","1600x1200")
     #print(cam1.status())
@@ -26,8 +27,8 @@ def main():
     #print(gps1.getLat())
     try:
         print "dms"
-        print gps1.getDMS()
-        print gps1.getTime()
+        print gpsp.getDMS()
+        print gpsd.utc, gpsd.fix.time
     #print(gps1.getLon())
         print("speed: {0:0.2f} m/s".format(gps1.getSpeed()))
         print("alt: {0:0.2f} m").format(gps1.getAlt())
