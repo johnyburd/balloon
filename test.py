@@ -1,8 +1,10 @@
 from gpsClass import GpsClass
 from Webcam import Webcam
 from barometer import Barometer
-import cellDongle 
+import cellDongle
 import time
+
+#sudo gpsd /dev/ttyUSB0 -F /var/run/gpsd.sock -S 99
 
 def main():
     print("initializing balloon equipment")

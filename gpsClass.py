@@ -11,10 +11,14 @@ class GpsClass:
         for i in xrange(10):
             try:
                 report = self.session.next()
+                print(1)
                 if report['class'] == 'TPV':
+                    print 2
                     if hasattr(report, reportType):
+                        print 3
                         return getattr(report, reportType)
             except:
+                print 4
                 return 1
 
     def getDMS(self):
@@ -42,7 +46,7 @@ class GpsClass:
             pos = False
 
         degrees = int(math.floor(dec))
-        print degrees
+        #print degrees
         temp = dec % 1
         temp *= 60
         minutes = int(math.floor(temp))
