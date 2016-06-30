@@ -10,4 +10,8 @@ class Webcam:
         return retval
 
     def status(self):
-        return "good"
+        retval = os.system("ls " + self.device)
+        if retval == 0:
+            return("detected")
+        return("not detected")
+
