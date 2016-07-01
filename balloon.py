@@ -55,7 +55,7 @@ def main():
         altitude = 0
         try:
             altitude = gpsp.get_altitude()
-        except
+        except:
             try:
                 altitude = bar1.getAlt()
             except:
@@ -79,7 +79,7 @@ def main():
         time.sleep(5)
 
         if (altitude < 3048 + GROUND_ELEVATION): #10000ft in m
-            if (!is_connected()):
+            if (not is_connected()):
                try:
                     data.connect()
                     print("Connection successful: " + str(is_connected()))
@@ -88,14 +88,13 @@ def main():
                     print("Could not connect because of an error")
         if (is_connected()):
             try:
-                retval = os.system("scp *.txt " + SERVER_HOST + ":.")
+                retval = os.system("scp /home/pi/balloon/*.txt " + SERVER_HOST + ":.")
                 if retval == 0:
                     print("Copied txt files")
-                else
+                else:
                     print("Error copying files")
-
-
-
+            except:
+                print("Double error copying files")
 
 
 
