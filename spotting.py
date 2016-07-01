@@ -19,6 +19,23 @@ def calcAltitude(A, B, c): # returns altitude based on ASA in radians
     h = a * math.sin(B)
 
     return h
+def calcLatLon(B, C, a, lat, lon):
+    A = (math.pi/2) - B - C
+
+    c = (a * math.sin(C)) / math.sin(A)
+
+    loncomp = c * math.cos(math.pi)
+    latcomp = c * math.sin(math.pi)
+
+    R=6378137
+
+    dLat = latcomp/R
+    dLon = loncomp/(R*math.cos(math.pi*lat/180))
+
+    latO = lat + dLat * 180/math.pi
+    lonO = lon + dLon * 180/math.pi 
+    return [latO, lonO]
+
 
 def decToDMS(dec):
     pos = dec >= 0
@@ -34,10 +51,10 @@ def decToDMS(dec):
 
     return [pos,degrees,minutes,seconds]
 
-lat1 = 40.7486
-lon1 = -73.9864
-lat2 = 40.7486
-lon2 = -73.9986
+lat1 = 36.54752
+lon1 = -82.46460
+lat2 = 36.54763
+lon2 = -82.46456
 
 
 #distance = 1066.8
@@ -48,9 +65,14 @@ while True:
     Ap = input("azimuth 1 (deg)? ")
     B = input("elevation 2 (deg)? ")
     Bp = input("azimuth 2 (deg)? ")
-    print()
+
+    Ap = 90 - Ap
+    Bp = 90 - Bp
+    print
+
+    newlat, newlon = calcLatLon(Ap, Bp, distance, lat1, lon1)
 
     print("altitude: " + str(calcAltitude(math.radians(A), math.radians(B), distance)) + "m")
-    print("latitude: ")
-    print("longitude: ")
+    print("latitude: " + str(newlat))
+    print("longitude: " + str(newlon))
 
