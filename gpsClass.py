@@ -67,6 +67,8 @@ class GpsPoller(threading.Thread):
 
   def update_daemon(self): # this function should allow the program to repair itsself if the devices get switched out from underneath it
     return os.system("sudo gpsd " + self.device + " -F /var/run/gpsd.sock -S 99")
+  def get_altitude(self):
+    return gpsd.fix.altitude
 
   def test(self):
 

@@ -6,8 +6,11 @@ class Webcam:
         self.resolution = rez
 
     def take_pic(self):
-        retval = os.system("fswebcam --no-banner -S 2 -d " + self.device + " -r " + self.resolution + " $(date +\"%d_%H:%M:%S\").jpg")
-        return retval
+        try:
+            retval = os.system("fswebcam --no-banner -S 2 -d " + self.device + " -r " + self.resolution + " $(date +\"%d_%H:%M:%S\").jpg")
+            return retval
+        except:
+            print("webcam " + str(self.device) + " error")
 
     def status(self):
         retval = os.system("ls " + self.device)
