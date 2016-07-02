@@ -72,8 +72,6 @@ class GpsPoller(threading.Thread):
 
   def test(self):
 
-    print ' GPS reading'
-    print '----------------------------------------'
     print 'latitude    ' , gpsd.fix.latitude
     print 'longitude   ' , gpsd.fix.longitude
     print 'time utc    ' , gpsd.utc,' + ', gpsd.fix.time
@@ -86,5 +84,4 @@ class GpsPoller(threading.Thread):
     print 'climb       ' , gpsd.fix.climb
     print 'track       ' , gpsd.fix.track
     print 'mode        ' , gpsd.fix.mode
-    print
     print 'sats        ' , gpsd.satellites

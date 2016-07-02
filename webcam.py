@@ -7,7 +7,7 @@ class Webcam:
 
     def take_pic(self):
         try:
-            retval = os.system("fswebcam --no-banner -S 2 -d " + self.device + " -r " + self.resolution + " /home/pi/balloon/$(date +\"%d_%H:%M:%S\").jpg")
+            retval = os.system("fswebcam --no-banner --quiet -S 2 -d " + self.device + " -r " + self.resolution + " /home/pi/balloon/$(date +\"%d_%H:%M:%S\").jpg")
             return retval
         except:
             print("webcam " + str(self.device) + " error")

@@ -8,6 +8,8 @@ import sys
 import time
 import socket
 import os
+import math
+import subprocess
 
 GROUND_ELEVATION = 346 #m
 REMOTE_SERVER = "www.google.com"
@@ -21,12 +23,6 @@ def main():
     print("3g... ")
     data = CellDongle()
     print("Status: " + data.detected())
-    print("Attempting connection...")
-    #print(data.connect())
-    print("Testing status...")
-   # print(data.status())
-    print("Disconnecting...")
-    #print(data.disconnect())
     print
 
     print("GPS... ")
@@ -36,7 +32,6 @@ def main():
     print
 
     print("LifeCam webcam...")
-   # print '/dev/v4l/by-id/usb-Microsoft_Microsoft_LifeCam_NX-6000-video-index0'.encode('utf-8')
     cam1 = Webcam('/dev/v4l/by-id/usb-Microsoft_Microsoft*_LifeCam_NX-6000-video-index0',"1600x1200")
     print("status: " + cam1.status())
     print
@@ -49,6 +44,7 @@ def main():
     print("Barometer... ")
     bar1 = Barometer()
     print
+    notTriggered = True
 
 
     while True:
@@ -60,6 +56,12 @@ def main():
                 altitude = bar1.getAlt()
             except:
                 print("Neither GPS nor barometer can give altitude.  Assuming device is on the ground.")
+        try:
+            if math.isnan(altitude):
+                altitude = int(0)
+        except:
+            pass
+        print("altitude: " + str(altitude))
 
         for i in xrange(3):
             record_gps(gpsp)
@@ -72,9 +74,10 @@ def main():
 
         print("Webcam 1 picture...")
         cam1.take_pic()
+        print(cam1.status())
         print("Webcam 2 picture...")
         cam2.take_pic()
-        print
+        print(cam2.status())
 
         time.sleep(5)
 
@@ -87,6 +90,8 @@ def main():
                except:
                     print("Could not connect because of an error")
         if (is_connected()):
+            print("Connected to the internet")
+            print
             try:
                 retval = os.system("scp /home/pi/balloon/*.txt " + SERVER_HOST + ":.")
                 if retval == 0:
@@ -95,6 +100,15 @@ def main():
                     print("Error copying files")
             except:
                 print("Double error copying files")
+
+            if (altitude < 150 + GROUND_ELEVATION and notTriggered):
+                try:
+                    print("Attempting to beam home the first few pictures")
+                    retval = os.system("scp /home/pi/balloon/*.jpg " + SERVER_HOST + ":. && mv /home/pi/balloon/*jpg /home/pi")
+                except:
+                    print("uh oh, something went wrong already?")
+            else:
+                notTriggered = False
 
 
 
