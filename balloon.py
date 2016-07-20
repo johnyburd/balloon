@@ -13,7 +13,7 @@ import subprocess
 
 GROUND_ELEVATION = 346 #m
 REMOTE_SERVER = "www.google.com"
-SERVER_HOST = "johnyburd@24.158.200.117"
+SERVER_HOST = "johnyburd@24.158.201.145"
 
 def main():
 
@@ -31,13 +31,14 @@ def main():
     gpsp.start()
     print
 
-    print("LifeCam webcam...")
-    cam1 = Webcam('/dev/v4l/by-id/usb-Microsoft_Microsoft*_LifeCam_NX-6000-video-index0',"1600x1200")
+    print("PiCamera webcam...")
+    cam1 = Webcam('picamera',"1920x1080")
     print("status: " + cam1.status())
     print
 
-    print("iSight webcam..")
-    cam2 = Webcam("/dev/v4l/by-id/usb-Micron_Built-in_iSight-video-index0","352x288")
+    print("Generic webcam..")
+
+    cam2 = Webcam('/dev/v4l/by-id/usb-Generic_FULL_HD_1080P_Webcam_200901010001-video-index0',"1920x1080")
     print("status: " + cam2.status())
     print
 
@@ -73,10 +74,10 @@ def main():
             time.sleep(3)
 
         print("Webcam 1 picture...")
-        cam1.take_pic()
+        #cam1.take_pic()
         print(cam1.status())
         print("Webcam 2 picture...")
-        cam2.take_pic()
+        #cam2.take_pic()
         print(cam2.status())
 
         time.sleep(5)
